@@ -14,7 +14,7 @@ const Slice = createSlice({
             state.weather = action.payload
         },
         errWeatherResponse: (state, action) => {
-            toast.error('Shahar nomini noto\'g\'ri kiritdingiz!')
+            toast.error(`Shahar nomini noto'g'ri kiritdingiz!`)
         },
 
     }

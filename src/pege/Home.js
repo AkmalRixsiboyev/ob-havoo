@@ -4,12 +4,12 @@ import {getWeather, search} from "../store/weather";
 import {useEffect, useState} from "react";
 import war from './img/war.png'
 
-function Home({getWeather, weather, search, errMessage}) {
-
+function Home({getWeather, weather, search}) {
     useEffect(() => {
         getWeather('Tashkent')
     }, [])
     const [value, setValue] = useState('')
+
 
 
     function btn() {
@@ -17,6 +17,20 @@ function Home({getWeather, weather, search, errMessage}) {
         setValue('')
     }
 
+    const shaxarlar = [
+        {SH: 'Andijan'},
+        {SH: 'Bukhara'},
+        {SH: 'Fergana'},
+        {SH: 'Jizzakh'},
+        {SH: 'Urganch'},
+        {SH: 'Namangan'},
+        {SH: 'Navoiy'},
+        {SH: 'Qashqadaryo'},
+        {SH: 'Samarqand'},
+        {SH: 'Sirdaryo'},
+        {SH: 'Karakalpakstan'},
+        {SH: 'Tashkent'}
+    ]
 
     useEffect(() => {
         if (weather && document.querySelector('.Home')) {
@@ -32,6 +46,14 @@ function Home({getWeather, weather, search, errMessage}) {
         let apii = e.target.value
         getWeather(apii)
     }
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            search(value)
+            setValue('')
+        }
+    }
+
 
     const date = new Date()
 
@@ -57,47 +79,53 @@ function Home({getWeather, weather, search, errMessage}) {
             break
         case 7:
             dayOfWeek = 'Sunday'
+            break;
+        default:
+            date.getDay()
     }
     let month = ''
     switch (date.getMonth()) {
         case 0:
             month = 'January'
-            break
+            break;
         case 1:
             month = 'February'
-            break
+            break;
         case 2:
             month = 'March'
-            break
+            break;
         case 3:
             month = 'April'
-            break
+            break;
         case 4:
             month = 'May'
-            break
+            break;
         case 5:
             month = 'June'
-            break
+            break;
         case 6:
             month = 'July'
-            break
+            break;
         case 7:
             month = 'August'
-            break
+            break;
         case 8:
             month = 'September'
-            break
+            break;
         case 9:
             month = 'October'
-            break
+            break;
         case 10:
             month = 'November'
-            break
+            break;
         case 11:
             month = 'December'
+            break;
+        default:date.getMonth()
+
 
     }
-    const {name, sys, main} = obHavo
+    const {name, sys} = obHavo
     return (<>
             {(typeof weather.main != 'undefined') ?
                 <div className={'Home'}>
@@ -115,18 +143,29 @@ function Home({getWeather, weather, search, errMessage}) {
                                         <p>{date.getHours()}:{date.getMinutes()}-{dayOfWeek},{date.getDate()} {month} {date.getFullYear()} </p>
                                     </div>
                                 </div>
-                                <div className="icon">
-                                    <p></p>
-                                </div>
+
                             </div>
                         </div>
                     </div>
                     <div className="right">
                         <div className="text">
                             <div className="search_box">
-                                <input value={value} onChange={(e) => setValue(e.target.value)}
+                                <input value={value} onKeyDown={handleKeyDown}
+                                       onChange={(e) => setValue(e.target.value)}
+                                    className={'search'} placeholder={'Another location'} type="text"/>
+                                <div className={'p-absolute'}>
+                                    {  shaxarlar.filter ( (item, index) => {
+                                        if (   value === '' ) {
+                                            return ''
+                                        } else if (item.SH.toLowerCase ().includes ( value.toLowerCase ())){
+                                            return item
+                                        }  } ).map((item,index)=>
+                                            <button key={index} onClick={()=>setValue(item.SH) } value={item.SH}>{item.SH}</button>
 
-                                       className={'search'} placeholder={'Another location'} type="text"/>
+
+                                        )
+                                    }
+                                </div>
                                 <button onClick={btn} className={'btn_search'}>
                                     <i className="fas fa-search"> </i>
                                 </button>

@@ -107,7 +107,7 @@
 .left{
     width: 60%;
     display: flex;
-    align-items: end;
+    align-items: flex-end;
     padding: 40px;
 }
 .bloc{
@@ -139,6 +139,9 @@
 }
 .data p{
     margin: 0;
+}
+.p-absolute{
+    position: absolute;
 }
 
 @media  (max-width: 1024px) {
