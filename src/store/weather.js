@@ -14,7 +14,7 @@ const Slice = createSlice({
             state.weather = action.payload
         },
         errWeatherResponse: (state, action) => {
-            toast.error(`Shahar nomini noto'g'ri kiritdingiz!`)
+            state.errMessage =  toast.error(`Shahar nomini noto'g'ri kiritdingiz!`)
         },
 
     }
@@ -25,7 +25,6 @@ export const getWeather = (value) => apiCall(
     {
         value,
         onSuccess: Slice.actions.getWeatherResponse.type
-
     }
 )
 export const search = (value) => apiCall(

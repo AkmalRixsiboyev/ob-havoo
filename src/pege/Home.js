@@ -154,13 +154,12 @@ function Home({getWeather, weather, search}) {
                                        onChange={(e) => setValue(e.target.value)}
                                     className={'search'} placeholder={'Another location'} type="text"/>
                                 <div className={'p-absolute'}>
-                                    {  shaxarlar.filter ( (item, index) => {
+                                    {  shaxarlar.filter (item => {
                                         if (   value === '' ) {
                                             return ''
                                         } else if (item.SH.toLowerCase ().includes ( value.toLowerCase ())){
                                             return item
-                                        }  } ).map((item,index)=>
-                                            <button key={index} onClick={()=>setValue(item.SH) } value={item.SH}>{item.SH}</button>
+                                        }  } ).map((item,index)=> <button key={index} onClick={()=>setValue(item.SH) } value={item.SH}>{item.SH}</button>
 
 
                                         )
